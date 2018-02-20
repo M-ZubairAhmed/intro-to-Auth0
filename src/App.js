@@ -8,11 +8,15 @@ class App extends React.Component {
     auth = new Auth()
   }
 
-  render() {
+  login=()=>{
     auth.login()
+  }
+
+  render() {
     return (
       <div>
         <h1>saWelcome to React</h1>
+        <button onClick={this.login}>login</button>
       </div>
     )
   }

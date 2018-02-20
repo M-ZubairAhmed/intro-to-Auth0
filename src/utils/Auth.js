@@ -11,7 +11,22 @@ export default class Auth {
     scope: 'openid',
   })
 
-  login() {
-    this.auth0.authorize()
+  loginWithGithub() {
+    this.auth0.authorize({ connection: 'github' })
+  }
+
+  loginWithEmailPass(username, password) {
+    this.auth0.login({
+      realm: AUTH0_SECRETS.database,
+      username: username,
+      password: password,
+    })
+  }
+
+  logout(returnUrl) {
+    this.auth0.logout({
+      returnTo: returnUrl,
+      clientID: AUTH0_SECRETS.clientId,
+    })
   }
 }

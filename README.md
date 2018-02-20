@@ -15,3 +15,16 @@
 6. In you app try calling this method by making an instance of the class you created, you should be able to see the _Auth0_ login screen.
 
 #### Custom login with Auth0 API
+
+If predefined UI of auth0 puts the user of our UI flow, then implementing custom UI makes sense
+
+1. Instead of calling method `authorize` without parameters, once can pass the user detail object.
+2. If default Auth0 database is set in the dashboard, copy its name
+3. For login with password call `login` with objects filled with database name and user details.
+4. For social logins same `authorize` method can be used but to differenciate between the providers pass an object containing the social providers name.
+
+#### Next Up
+
+* Persistance storage with local session
+* isAuthenticated HOC
+* and more...
