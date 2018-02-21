@@ -40,7 +40,12 @@ If predefined UI of auth0 puts the user of our UI flow, then implementing custom
 
 ##### Storing tokens locally
 
-1.
+1. I am omiting obvious if and else from here, those could be seen from source code
+2. The authentication object recieved from **Auth0** is pretty sleek, contains enough information to make any subsiquent request either to our backend server or by single click signon with out redirect to Auth0 servers.
+3. Calculate when exactly the key is going to expire, this will help us to reautherize the user and store is along with access token and id.
+4. Tokens stored away in our local storage helps us to contruct a simple boolean `isAuthenticated` function which will just check if our token are expired or not. A complete roundtrip to Auth0 server is thus saved.
+
+#####
 
 #### Next Up
 

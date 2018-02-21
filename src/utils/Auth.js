@@ -25,9 +25,29 @@ export default class Auth {
 
   handleCallbackAuthentication = props => {
     this.auth0.parseHash((err, authResult) => {
-      console.log(authResult)
+      if (authResult && authResult.accessToken && authResult.idToken) {
+        console.log(authResult)
+        this.storeSession(authResult)
+      } else if (err) {
+        console.log(err)
+      }
     })
     props.history.goBack()
+  }
+
+  storeSession(authResult) {
+    const expiryDateTime = JSON.stringify(
+      authResult.expiresIn * 1000 + new Date().getTime(),
+    )
+    localStorage.setItem('access_token', authResult.accessToken)
+    localStorage.setItem('id_token', authResult.idToken)
+    localStorage.setItem('expiry', expiryDateTime)
+  }
+
+  isAuthenticated = () => {
+    const expiryTime = JSON.parse(localStorage.getItem('expiry'))
+    const currentTime = new Date().getTime()
+    return currentTime < expiryTime
   }
 
   logout = returnUrl => {
