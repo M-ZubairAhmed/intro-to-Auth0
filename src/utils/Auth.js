@@ -11,11 +11,11 @@ export default class Auth {
     scope: 'openid',
   })
 
-  loginWithGithub() {
+  loginWithGithub = () => {
     this.auth0.authorize({ connection: 'github' })
   }
 
-  loginWithEmailPass(username, password) {
+  loginWithEmailPass = (username, password) => {
     this.auth0.login({
       realm: AUTH0_SECRETS.database,
       username: username,
@@ -23,7 +23,13 @@ export default class Auth {
     })
   }
 
-  logout(returnUrl) {
+  handleCallbackAuthentication = () => {
+    this.auth0.parseHash((err, authResult) => {
+      console.log(authResult)
+    })
+  }
+
+  logout = returnUrl => {
     this.auth0.logout({
       returnTo: returnUrl,
       clientID: AUTH0_SECRETS.clientId,
