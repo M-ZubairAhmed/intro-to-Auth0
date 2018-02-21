@@ -23,6 +23,25 @@ If predefined UI of auth0 puts the user of our UI flow, then implementing custom
 3. For login with password call `login` with objects filled with database name and user details.
 4. For social logins same `authorize` method can be used but to differenciate between the providers pass an object containing the social providers name.
 
+##### Grabbing tokens from the callback url
+
+1. Its now time to add in the router to restrict and allow parts of your app.
+2. I prefer keeping all my views in a seperate folder, lets start by seperating app, since thats the front page
+3. Add the route for font page `/` in `index.js`.
+4. Lets also throw in to mix a secret page.
+5. If you have followed above, you must have noticed that the url contains the hashes after we authenticated. Those have come in from **Auth0** servers.
+6. Our task would be catching and caching them for future purposes. Parsing the url is another do away, Auth0 helps us with a method called `parseHash(cb)`.
+7. Create another method in you `Auth.js` to parse those hashes. Lets log it for now to see what it parses.
+8. Lets resume back to our routes adding in `index.js`. This time lets add a route for callback `/callback`.
+9. It could just be a loading screen to start with. But in this route we would also like to parse the hashes we recieved in the url.
+10. So to be able to refernce the methods we wrote in AuthJS lets have an instance of it in our `index.js`, and this could be only place where we could instantiate it, as we could pass the reference to all other routes from here. Its convienient that way.
+11. So by making a custom method `handleAuthentication` which calls the `handleAuthentication` method of `Auth.js` we pass in before we return the Callback Page.
+12. Take a look at the object, once we done what we are suppose to we can go back to the page we came from by Historys `goBack()` api.
+
+##### Storing tokens locally
+
+1.
+
 #### Next Up
 
 * Persistance storage with local session

@@ -23,10 +23,11 @@ export default class Auth {
     })
   }
 
-  handleCallbackAuthentication = () => {
+  handleCallbackAuthentication = props => {
     this.auth0.parseHash((err, authResult) => {
       console.log(authResult)
     })
+    props.history.goBack()
   }
 
   logout = returnUrl => {
