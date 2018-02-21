@@ -32,25 +32,30 @@ export default class Auth {
         console.log(err)
       }
     })
-    props.history.goBack()
+    // props.history.goBack()
   }
 
   storeSession(authResult) {
-    const expiryDateTime = JSON.stringify(
+    let expiresAt = JSON.stringify(
       authResult.expiresIn * 1000 + new Date().getTime(),
     )
+    console.log(authResult)
+    localStorage.setItem('access_token', authResult.accessToken)
     localStorage.setItem('access_token', authResult.accessToken)
     localStorage.setItem('id_token', authResult.idToken)
-    localStorage.setItem('expiry', expiryDateTime)
+    localStorage.setItem('expires_at', expiresAt)
   }
 
   isAuthenticated = () => {
-    const expiryTime = JSON.parse(localStorage.getItem('expiry'))
-    const currentTime = new Date().getTime()
-    return currentTime < expiryTime
+    let expiresAt = JSON.parse(localStorage.getItem('expires_at'))
+    console.log('isAuthenticated', new Date().getTime() < expiresAt)
+    return new Date().getTime() < expiresAt
   }
 
   logout = returnUrl => {
+    localStorage.removeItem('access_token')
+    localStorage.removeItem('id_token')
+    localStorage.removeItem('expires_at')
     this.auth0.logout({
       returnTo: returnUrl,
       clientID: AUTH0_SECRETS.clientId,

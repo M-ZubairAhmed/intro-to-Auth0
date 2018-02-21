@@ -44,11 +44,24 @@ If predefined UI of auth0 puts the user of our UI flow, then implementing custom
 2. The authentication object recieved from **Auth0** is pretty sleek, contains enough information to make any subsiquent request either to our backend server or by single click signon with out redirect to Auth0 servers.
 3. Calculate when exactly the key is going to expire, this will help us to reautherize the user and store is along with access token and id.
 4. Tokens stored away in our local storage helps us to contruct a simple boolean `isAuthenticated` function which will just check if our token are expired or not. A complete roundtrip to Auth0 server is thus saved.
+5. For logout we clear tokens instead.
 
-#####
+##### Private pages
 
-#### Next Up
+1. Usually even if user is not logged in, some part of the truncated page is still visible, lets throw this into the mix.
+2. Create a partial secret page, with its some content rendered only in logged in mode.
+3. We do this my calling, if you remeber `isAuthenticatd()` function from `Authjs` class.
+4. Complete private page however is a little different, we do not ever want any part of the page to be visible to not logged in user.
+5. We do that by not mounting the page at all in our routes. For this **react-router** gives a declarative way to naviagate away from the page via `<redirect>` api.
 
-* Persistance storage with local session
-* isAuthenticated HOC
-* and more...
+#### What all you can do differently
+
+1. May be you could make a `isAuthenticated` HOC, this way you dont need to write boolean logic again and again for all private components
+2. May be you would like to store in a cookie.
+3. And whatever suits you and your application
+
+#### Up next
+
+* Making a network call to your own server with Auth0 authentication
+* Attaching react redux
+* and more!!

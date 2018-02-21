@@ -1,11 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 
 import Auth from './utils/Auth'
 import CallbackPage from './views/callback_page'
 import FrontPage from './views/front_page'
 import SecretPage from './views/secret_page'
+import PartialSecretPage from './views/partial_secret_page'
 
 const htmlNode = document.getElementById('root')
 const auth = new Auth()
@@ -22,7 +23,20 @@ ReactDOM.render(
         exact
         render={props => <FrontPage auth={auth} {...props} />}
       />
-      <Route path="/secret" render={props => <SecretPage auth={auth} />} />
+      <Route
+        path="/secret"
+        render={props =>
+          auth.isAuthenticated() ? (
+            <SecretPage auth={auth} {...props} />
+          ) : (
+            <Redirect to="/" exact />
+          )
+        }
+      />
+      <Route
+        path="/partial-secret"
+        render={props => <PartialSecretPage auth={auth} {...props} />}
+      />
       <Route
         path="/callback"
         render={props => {
