@@ -3,8 +3,10 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 
 import Auth from './utils/Auth'
-import CallbackPage from './views/callback_page'
+
 import FrontPage from './views/front_page'
+import LoginPage from './views/login_page'
+import CallbackPage from './views/callback_page'
 import SecretPage from './views/secret_page'
 import PartialSecretPage from './views/partial_secret_page'
 
@@ -22,6 +24,10 @@ ReactDOM.render(
         path="/"
         exact
         render={props => <FrontPage auth={auth} {...props} />}
+      />
+      <Route
+        path="/login"
+        render={props => <LoginPage auth={auth} {...props} />}
       />
       <Route
         path="/secret"

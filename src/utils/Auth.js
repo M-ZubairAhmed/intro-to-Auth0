@@ -8,7 +8,7 @@ export default class Auth {
     redirectUri: AUTH0_SECRETS.callbackUrl,
     audience: `https://${AUTH0_SECRETS.domain}/userinfo`,
     responseType: 'token id_token',
-    scope: 'openid',
+    scope: 'openid profile',
   })
 
   loginWithGithub = () => {
@@ -32,7 +32,7 @@ export default class Auth {
         console.log(err)
       }
     })
-    // props.history.goBack()
+    props.history.goBack()
   }
 
   storeSession(authResult) {
@@ -49,6 +49,7 @@ export default class Auth {
   isAuthenticated = () => {
     let expiresAt = JSON.parse(localStorage.getItem('expires_at'))
     console.log('isAuthenticated', new Date().getTime() < expiresAt)
+    console.log()
     return new Date().getTime() < expiresAt
   }
 
