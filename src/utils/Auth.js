@@ -23,10 +23,12 @@ export default class Auth {
     })
   }
 
+// This is where you recieve your auth results
   handleCallbackAuthentication = props => {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
-        console.log(authResult)
+        console.log("Callback from auth0 server result:",authResult)
+        // Once recieved store it inside your local storage
         this.storeSession(authResult)
       } else if (err) {
         console.log(err)
@@ -35,17 +37,18 @@ export default class Auth {
     props.history.goBack()
   }
 
+// function to store in local cache
   storeSession(authResult) {
     let expiresAt = JSON.stringify(
       authResult.expiresIn * 1000 + new Date().getTime(),
     )
-    console.log(authResult)
     localStorage.setItem('access_token', authResult.accessToken)
     localStorage.setItem('access_token', authResult.accessToken)
     localStorage.setItem('id_token', authResult.idToken)
     localStorage.setItem('expires_at', expiresAt)
   }
 
+// Checking if the tokens are expired by verifying the date
   isAuthenticated = () => {
     let expiresAt = JSON.parse(localStorage.getItem('expires_at'))
     console.log('isAuthenticated', new Date().getTime() < expiresAt)

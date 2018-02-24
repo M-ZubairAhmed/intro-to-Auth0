@@ -1,9 +1,21 @@
+### Prereq
+1. [Nodejs](https://nodejs.org/en/download/current/) v9.5.0
+2. [Yarn](https://yarnpkg.com/en/docs/install) 1.3.2
+
 ### Starting the app
 
 1. Rename `src/utils/secrets.example.js` file to `src/utils/secrets.js`
-2. Add the configuration from the Auth0 dashboard.
+2. Add the configuration from the [Auth0 dashboard.](https://auth0.com/docs/quickstart/spa/react)
+3. Install dependencies
+```bash
+yarn
+```
+4. Start the frontend server
+```bash
+yarn start
+```
 
-### Notes
+### Step by step guide
 
 #### Hosted solution
 
