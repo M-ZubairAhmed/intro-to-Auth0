@@ -14,43 +14,29 @@ const htmlNode = document.getElementById('root')
 const auth = new Auth()
 
 const handleAuthentication = props => {
-  auth.handleCallbackAuthentication(props)
+ auth.handleCallbackAuthentication(props)
 }
 
 ReactDOM.render(
-  <Router>
-    <div>
-      <Route
-        path="/"
-        exact
-        render={props => <FrontPage auth={auth} {...props} />}
-      />
-      <Route
-        path="/login"
-        render={props => <LoginPage auth={auth} {...props} />}
-      />
-      <Route
-        path="/secret"
-        render={props =>
-          auth.isAuthenticated() ? (
-            <SecretPage auth={auth} {...props} />
-          ) : (
-            <Redirect to="/" exact />
-          )
-        }
-      />
-      <Route
-        path="/partial-secret"
-        render={props => <PartialSecretPage auth={auth} {...props} />}
-      />
-      <Route
-        path="/callback"
-        render={props => {
-          handleAuthentication(props)
-          return <CallbackPage {...props} />
-        }}
-      />
-    </div>
-  </Router>,
-  htmlNode,
+ <Router>
+  <div>
+   <Route path="/" exact render={props => <FrontPage auth={auth} {...props} />} />
+   <Route path="/login" render={props => <LoginPage auth={auth} {...props} />} />
+   <Route
+    path="/secret"
+    render={props =>
+     auth.isAuthenticated() ? <SecretPage auth={auth} {...props} /> : <Redirect to="/" exact />
+    }
+   />
+   <Route path="/partial-secret" render={props => <PartialSecretPage auth={auth} {...props} />} />
+   <Route
+    path="/callback"
+    render={props => {
+     handleAuthentication(props)
+     return <CallbackPage {...props} />
+    }}
+   />
+  </div>
+ </Router>,
+ htmlNode,
 )
