@@ -1,6 +1,6 @@
 export const AUTH0_SECRETS = {
-  domain: '',
-  clientId: '',
-  callbackUrl: '',
-  database: '',
-}
+  domain: "",
+  clientId: "",
+  callbackUrl: "",
+  database: ""
+};

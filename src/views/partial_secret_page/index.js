@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 export default class PartialSecretPage extends React.Component {
   render() {
@@ -14,6 +14,6 @@ export default class PartialSecretPage extends React.Component {
           </h5>
         ) : null}
       </div>
-    )
+    );
   }
 }
